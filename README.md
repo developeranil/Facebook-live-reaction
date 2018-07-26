@@ -14,4 +14,6 @@ This reaction style fully responsive with supported all mobile devices
 	Google Chrome<br>
 	Safari<br>
 	Microsoft Edge<br>
-	Internet Explorer
+	Internet Explorer<br>
+	iPhone<br>
+	Android
