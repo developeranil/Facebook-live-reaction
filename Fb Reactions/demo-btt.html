@@ -1,0 +1,138 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Smiley Face</title>
+
+<link rel="shortcut icon" href="favicon.ico">
+</head>
+
+<body  class="FullHeight">
+	
+	<div class="particlesContainerParent">
+		<div class="particlesContainer">
+			<span class="particle wink"></span>
+		</div>
+	</div>
+	
+	<style>
+		.particlesContainerParent{
+			position: fixed;
+			width: 100%;
+			height: 100%;
+			margin: auto;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			overflow: hidden;
+			top: 0;
+			left: 0;
+			z-index: 999;
+		}
+		.particlesContainer{
+			width: 100%;
+			height: 100%;
+		}
+		.particle{
+			display: inline-flex;
+			position: absolute;
+			border-radius: 100%;
+			left:0;
+			right: 0;
+			top: 100%;
+			border: solid 3px #ffe55e;
+			margin: auto;
+			background-image: url(ftr-bg.png);
+			background-repeat: no-repeat;
+			border-radius: 100%;
+			background-color: #fff;
+		}
+		.particle.like {
+			height: 56px;
+			width: 56px;
+			background-position: 1px -4px;
+		}
+		.particle.likeSmall {
+			height: 45px;
+			width: 45px;
+			background-position: -294px -11px;
+		}
+		.particle.laughSmall {
+			height: 50px;
+			width: 50px;
+			background-position: -225px -8px;
+		}
+		.particle.laugh {
+			height: 65px;
+			width: 65px;
+			background-position: -358px 0px;
+		}
+		.particle.love {
+			height: 47px;
+			width: 47px;
+			background-position: -75px -9px;
+		}
+		.particle.winkSmall {
+			height: 55px;
+			width: 55px;
+			background-position: -442px -5px;
+		}
+		.particle.wink {
+			height: 65px;
+			width: 65px;
+			background-position: -140px 0px;
+		}
+		
+		@media (max-width:767px){
+			.particle{-webkit-transform: scale(0.5);-moz-transform: scale(0.5);transform: scale(0.5);}
+		}
+	</style>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script>	
+	$(document).ready(function () {
+		/*generate the random number*/
+		var getRndInteger = function(min, max){
+			return Math.floor(Math.random() * (max - min + 1)) + min;
+		};
+		
+		/* emoji array */
+		var fbReactions = ["like","love","wink","laughSmall","likeSmall","laugh","winkSmall"];
+		
+		var interval;
+		
+		$(window).on("focus", function(){
+			/*When window is active*/
+			
+			interval = setInterval(function(){
+				$(".particlesContainer").append("<span class='particle " + fbReactions[getRndInteger(0, fbReactions.length - 1)] + "'></span>");
+				
+				$(".particle").toArray().forEach(function(particle){
+					$(particle).animate({
+						left: getRndInteger(0,$("body").width()),
+						right: getRndInteger(0,$("body").width())
+					},getRndInteger(10,20), function(){
+						
+						$(particle).animate({
+							top: -100+"%",
+							opacity:1
+						}, getRndInteger(8000,10000), function(){
+							$(particle).remove();
+						}); /*inside animate function */
+						
+					}); /* first animate function */
+				});
+				
+			}, getRndInteger(100, 300)); /*count of generated emoji*/
+		});
+		
+		$(window).on("blur", function(){
+			/*When window is inactive*/
+			clearInterval(interval);
+		});
+	});
+	</script>
+
+</body>
+</html>
